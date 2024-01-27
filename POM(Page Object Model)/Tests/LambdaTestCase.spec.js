@@ -1,8 +1,9 @@
-const { test, expect } = require("@playwright/test");
+const { test } = require("@playwright/test");
 const { LoginPage } = require("../Pages/LoginPageLambdaTest.spec");
 const { HomePage } = require("../Pages/HomePageLambdaTest.spec");
 const { SearchPage } = require("../Pages/SearchProductLambdaTest.spec");
 const {ProductCartPage} = require("../Pages/AddProductIntoCartLambdaTest.spec");
+import testData from "../testData/testData.json"
 
 test("Login and Navigate to My Account", async ({ page }) => {
   const Login = new LoginPage(page);
@@ -14,14 +15,14 @@ test("Login and Navigate to My Account", async ({ page }) => {
     "https://ecommerce-playground.lambdatest.io/index.php?route=account/login"
   );
   // Perform login
-  await Login.enterEmail("lambdatestnew@yopmail.com");
-  await Login.enterPassword("Lambda123");
+  await Login.enterEmail(testData.data[0].email);
+  await Login.enterPassword(testData.data[0].password);
   await Login.clickLoginButton();
 
-  // Validate user logged in and seeing change your password option
-  await homePage.verifyUserLoggedIn("Change your password");
+  // Validate user logged-in and Can Add/Delete the Product
+  await homePage.verifyUserLoggedIn(testData.data[0].homePageMessage);
   await searchPage.selectTheCategory();
-  await searchPage.searchForTheProduct("iPod");
-  await productIntoCart.addProductIntoCart();
+  await searchPage.searchForTheProduct(testData.data[0].searchProduct);
+  await productIntoCart.addProductIntoCart(testData.data[0].addProductMessage);
   await productIntoCart.removeProductIntoCart();
 });

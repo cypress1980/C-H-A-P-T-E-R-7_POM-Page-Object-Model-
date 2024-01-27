@@ -12,7 +12,7 @@ exports.ProductCartPage = class ProductCartPage {
       '(//p[contains(text(),"Your shopping cart is empty!")])[2]'
     );
   }
-  async addProductIntoCart() {
+  async addProductIntoCart(successMsg) {
     await this.hover.first().hover();
     await this.clickFirstElement.first().click();
     await expect(this.cartPopup).toContainText('Success: You have added iPod Touch to your shopping cart!')
