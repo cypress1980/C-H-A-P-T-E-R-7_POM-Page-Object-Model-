@@ -1,4 +1,4 @@
-const { test } = require("@playwright/test");
+const { test, expect } = require('@playwright/test');
 const { LoginPage } = require("../Pages/LoginPageLambdaTest.spec");
 const { HomePage } = require("../Pages/HomePageLambdaTest.spec");
 const { SearchPage } = require("../Pages/SearchProductLambdaTest.spec");
@@ -11,9 +11,7 @@ test("Login and Navigate to My Account", async ({ page }) => {
   const searchPage = new SearchPage(page);
   const productIntoCart = new ProductCartPage(page);
   // Open the website
-  await page.goto(
-    "https://ecommerce-playground.lambdatest.io/index.php?route=account/login"
-  );
+  await page.goto("https://ecommerce-playground.lambdatest.io/index.php?route=account/login");
   // Perform login
   await Login.enterEmail(testData.data[0].email);
   await Login.enterPassword(testData.data[0].password);

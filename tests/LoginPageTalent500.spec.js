@@ -17,7 +17,7 @@ exports.LoginPage = class LoginPage {
     await this.login_button.click();
   }
   async homePageConetnt(homeContent) {
-    const text = await this.page.locator('//div[@id="progress-bar"]').textContent();
+    const text = await this.page.locator('//a[contains(text(),"Discover jobs")]').textContent();
     expect(text).toContain(homeContent);
   }
   async logoutFromSite() {
